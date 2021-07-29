@@ -84,4 +84,8 @@ public class UserService implements  UserDetailsService {
         System.out.println("%%%%%%%%%"+user);
         return new UserDetailObj(user);
     }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
