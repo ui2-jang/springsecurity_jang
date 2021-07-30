@@ -1,42 +1,21 @@
 package com.example.test.controllers;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-
-import com.example.test.WebSecurityConfig;
 import com.example.test.entity.User;
 import com.example.test.form.UserForm;
 import com.example.test.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.context.ApplicationContext;
 import com.example.test.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.SpringSecurityMessageSource;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.transaction.Transactional;
-
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.logout;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -59,9 +38,7 @@ class UserControllerTest {
     UserService userService;
     @Autowired
     UserRepository userRepository;
-//
-//    @Autowired
-//    WebSecurityConfig webSecurityConfig;
+
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -72,22 +49,6 @@ class UserControllerTest {
         userForm.setPassword(password);
         return userForm;
     }
-
-
-
-
-    // login User admin 권한 페이지 접근
-//    @Test
-//    void test_user_access_admin() throws  Exception {
-//        mockMvc.perform(get("/h2-console").with(user("jang").password("1").roles("ADMIN")))
-//                .andDo(print())
-//                .andExpect(status().isOk());
-//
-//        mockMvc.perform(get("/h2-console")
-//                .with(user("jang").password("1").roles("ADMIN")))
-//                .andDo(print())
-//                .andExpect(status().is(200));
-//    }
 
     // 첫 화면 LoginPage
     @Test
@@ -125,8 +86,6 @@ class UserControllerTest {
         String username = "tester@teseter.com";
         String password = "123123";
 
-        // UserForm userForm = createUser(username,password);
-
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
@@ -138,15 +97,4 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("main"));
     }
-
-    // logout
-//    @Test
-//    @WithMockUser(username = "jang",password = "1",roles = "ADMIN")
-//    public void logout_test() throws Exception {
-//        mockMvc.perform(logout().logoutUrl("/logout"))
-//                .andExpect(unauthenticated())
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("login"));
-//    }
 }

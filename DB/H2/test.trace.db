@@ -1800,3 +1800,8 @@ delete from users where ROLE="ROLE_USER" [42122-200]
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:832)
+2021-07-29 18:34:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE FROM USERS WHERE ROLE='ROLE_USER'
+SELECT[*] * FROM USERS"; SQL statement:
+delete from users where role='ROLE_USER'
+select * from users [42000-200]
