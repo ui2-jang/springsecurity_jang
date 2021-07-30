@@ -14,7 +14,9 @@
     <div><label> Confirm_Password: <input type="password" name="confirm_password"/> </label></div>
     <div><input type="submit" value="Sign up"/></div>
   </form>
+    <span th:text="${session.message}">
 
+    </span>
   <a href="/login">戻る</a>
 </body>
 </html>
